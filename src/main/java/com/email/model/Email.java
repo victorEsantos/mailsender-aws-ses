@@ -1,13 +1,18 @@
 package com.email.model;
 
 import com.email.enums.StatusEmail;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
+@Builder
+@NoArgsConstructor
 @Entity
 @Table(name = "EMAIL")
 public class Email implements Serializable {

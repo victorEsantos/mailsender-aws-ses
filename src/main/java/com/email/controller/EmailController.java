@@ -25,10 +25,16 @@ public class EmailController {
     @Autowired
     EmailService emailService;
 
-    @PostMapping("/sending-email")
-    public ResponseEntity<Email> sendingEmail(@RequestBody @Valid EmailDTO emailDto) {
-        Email email = new Email();
-        BeanUtils.copyProperties(emailDto, email);
+    @PostMapping("/send-email")
+    public ResponseEntity<Email> sendEmail(@RequestBody @Valid EmailDTO dto) {
+        var email = Email.builder()
+                .ownerRef(dto.getOwnerRef())
+                .emailFrom(dto.getEmailFrom())
+                .emailTo(dto.getEmailTo())
+                .subject(dto.getSubject())
+                .text(dto.getText())
+                .build();
+//        BeanUtils.copyProperties(dto, email);
         emailService.sendEmail(email);
         return new ResponseEntity<>(email, HttpStatus.CREATED);
     }

@@ -17,14 +17,14 @@ import java.time.LocalDateTime;
 public class EmailService {
 
     @Autowired
-    EmailRepository emailRepository;
+    EmailRepository repository;
 
     @Autowired
     private JavaMailSender emailSender;
 
     public Email sendEmail(Email email) {
         email.setSendDateEmail(LocalDateTime.now());
-        try{
+        try {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(email.getEmailFrom());
             message.setTo(email.getEmailTo());
@@ -33,14 +33,14 @@ public class EmailService {
             emailSender.send(message);
 
             email.setStatusEmail(StatusEmail.SENT);
-        } catch (MailException e){
+        } catch (MailException e) {
             email.setStatusEmail(StatusEmail.ERROR);
-        } finally {
-            return emailRepository.save(email);
         }
+        return repository.save(email);
+
     }
 
     public Page<Email> findAll(Pageable pageable) {
-        return  emailRepository.findAll(pageable);
+        return repository.findAll(pageable);
     }
 }
