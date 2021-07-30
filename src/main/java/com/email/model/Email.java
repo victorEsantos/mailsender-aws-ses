@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "EMAIL")
 public class Email implements Serializable {
